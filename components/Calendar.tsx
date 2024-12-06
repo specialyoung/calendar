@@ -6,12 +6,9 @@ import {
   getYear,
   isSame,
   subtract,
-  toDate,
-  toDateString,
 } from "@/utils/date";
 import { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
-import AddFormModal from "./AddFormModal";
+import { StyleSheet, View } from "react-native";
 import IconButton from "./IconButton";
 import TextButton from "./TextButton";
 import CalendarDateCell from "./CalendarDateCell";
@@ -72,7 +69,7 @@ export default function Calendar({
   onChangeDate,
 }: CalendarProps) {
   const today = new Date();
-  const [modalVisible, setModalVisible] = useState(false);
+  
   const [dateSpinnerModalVisible, setDateSpinnerModalVisible] = useState(false);
 
   const selectedYear = getYear(selectedDate);
@@ -136,11 +133,6 @@ export default function Calendar({
       />
 
       <View style={styles.calendarNavigator}>
-        <TextButton text="오늘" onPress={onPressTodayButton} />
-        <IconButton iconName="add" onPress={() => setModalVisible(true)} />
-      </View>
-
-      <View style={styles.calendarNavigator}>
         <IconButton iconName="chevron-back" onPress={onPressPrevButton} />
         <TextButton
           text={`${selectedYear}년 ${displayMonth}월`}
@@ -175,11 +167,7 @@ export default function Calendar({
         ))}
       </View>
 
-      <AddFormModal
-        date={selectedDate}
-        isShow={modalVisible}
-        onClose={() => setModalVisible(false)}
-      />
+      
     </View>
   );
 }

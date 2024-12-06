@@ -62,6 +62,14 @@ export const toTimeString = (date: Date): App.TimeString => {
   return `${hh}:${mm}`;
 }
 
+export const toDateTime = (timeString: App.TimeString): Date => {
+  const [hh, mm] = timeString.split(':');
+  const date = new Date();
+  date.setHours(Number(hh));
+  date.setMinutes(Number(mm));
+  return date;
+}
+
 /**
  * manipulate
  */

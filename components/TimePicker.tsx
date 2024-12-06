@@ -4,25 +4,29 @@ import { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 
 interface TimePickerProps {
+  initialTime: Date;
   onChange: (date: Date) => void;
 }
 
-export default function TimePicker({ onChange }: TimePickerProps) {
+export default function TimePicker({ initialTime, onChange }: TimePickerProps) {
   const hoursOptions = Array.from({ length: 12 }, (_, index) => index + 1);
   const minutesOptions = [0, 30];
   const meridiemsOptions = [Meridiem.AM, Meridiem.PM];
-  const now = new Date();
-
-  const { hour, meridiem } = getHour(now);
+  
+  const { hour, meridiem } = getHour(initialTime);
   const [selectedHour, setSelectedHour] = useState(hour);
   const [selectedMinutes, setSelectedMinutes] = useState(0);
   const [selectedMeridiem, setSelectedMeridiem] = useState<Meridiem>(meridiem);
 
   useEffect(() => {
     const newDate = new Date();
-    newDate.setHours(
-      selectedHour + (selectedHour > 12 && selectedMeridiem === Meridiem.PM ? 12 : 0),
-    );
+    
+    let hour = selectedHour;
+    if ((selectedMeridiem === Meridiem.PM && hour < 12) || (selectedMeridiem === Meridiem.AM && hour === 12)) {
+      hour += 12;
+    }
+
+    newDate.setHours(hour);
     newDate.setMinutes(selectedMinutes);
     onChange(newDate);
   }, [selectedHour, selectedMinutes, selectedMeridiem]);
