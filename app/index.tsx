@@ -34,7 +34,7 @@ export default function Index() {
 
   useEffect(() => {
     const selectedYear = getYear(selectedDate);
-    const selectedMonth = getMonth(selectedDate) + 1;
+    const selectedMonth = `${getMonth(selectedDate) + 1}`.padStart(2, '0');
 
     const groupByDate = (list: Array<Schedule>) => {
       return list.reduce((result, cur) => {
@@ -65,7 +65,11 @@ export default function Index() {
         <TextButton text="오늘" onPress={() => setSelectedDate(new Date())} />
         <IconButton iconName="add" onPress={() => setModalVisible(true)} />
       </View>
-      <Calendar selectedDate={selectedDate} datesWithSchedules={Object.keys(scheduleTree ?? {})} onChangeDate={(date) => setSelectedDate(date)} />
+      <Calendar
+        selectedDate={selectedDate}
+        datesWithSchedules={Object.keys(scheduleTree ?? {})}
+        onChangeDate={(date) => setSelectedDate(date)}
+      />
       <ScheduleList list={schedulesOfSelectedDate} onSelectSchedule={onSelectSchedule} />
       <ScheduleFormModal
         date={selectedDate}
@@ -88,7 +92,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    gap: 16,
-    paddingVertical: 8,
+    gap: 16
   },
 });
