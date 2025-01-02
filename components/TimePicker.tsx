@@ -12,7 +12,7 @@ export default function TimePicker({ initialTime, onChange }: TimePickerProps) {
   const hoursOptions = Array.from({ length: 12 }, (_, index) => index + 1);
   const minutesOptions = [0, 30];
   const meridiemsOptions = [Meridiem.AM, Meridiem.PM];
-  
+
   const { hour, meridiem } = getHour(initialTime);
   const [selectedHour, setSelectedHour] = useState(hour);
   const [selectedMinutes, setSelectedMinutes] = useState(0);
@@ -20,9 +20,12 @@ export default function TimePicker({ initialTime, onChange }: TimePickerProps) {
 
   useEffect(() => {
     const newDate = new Date();
-    
+
     let hour = selectedHour;
-    if ((selectedMeridiem === Meridiem.PM && hour < 12) || (selectedMeridiem === Meridiem.AM && hour === 12)) {
+    if (
+      (selectedMeridiem === Meridiem.PM && hour < 12) ||
+      (selectedMeridiem === Meridiem.AM && hour === 12)
+    ) {
       hour += 12;
     }
 

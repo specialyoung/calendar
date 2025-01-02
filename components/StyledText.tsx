@@ -23,7 +23,7 @@ export default function StyledText({
         styles.text,
         type === TextType.SubTitle ? styles.subtitle : null,
         type === TextType.Title ? styles.title : null,
-        { color: color ?? 'black' }
+        { color: color ?? "black" },
       ]}
       {...rest}
     >

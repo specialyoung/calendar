@@ -38,7 +38,7 @@ export default function CalendarDateCell({
           isToday || isSelectedDate ? styles.whiteText : null,
         ]}
       >
-        {calendarDate?.d ?? ''}
+        {calendarDate?.d ?? ""}
       </Text>
 
       {isDateWithSchedules && (

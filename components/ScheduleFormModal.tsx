@@ -10,7 +10,7 @@ import ScheduleForm, { Form, ScheduleFormProps } from "./ScheduleForm";
 
 interface ScheduleFormModalProps {
   date: Date;
-  schedule: ScheduleFormProps['schedule']
+  schedule: ScheduleFormProps["schedule"];
   isShow: boolean;
   onClose: () => void;
 }
@@ -34,35 +34,38 @@ export default function ScheduleFormModal({
         color: formValues.color,
         startTime: formValues.startTime.toISOString(),
         endTime: formValues.endTime.toISOString(),
-      }
+      };
       await client.models.Schedule.create(payload);
     } catch (error) {
-      console.error('createSchedule: ', error)
+      console.error("createSchedule: ", error);
     }
-  }
+  };
 
-  const updateSchedule = async ({ schedule, formValues }: {
-    schedule: Schema['Schedule']['type'],
-    formValues: Form
+  const updateSchedule = async ({
+    schedule,
+    formValues,
+  }: {
+    schedule: Schema["Schedule"]["type"];
+    formValues: Form;
   }) => {
     try {
       const payload = {
         ...schedule,
         startTime: formValues.startTime.toISOString(),
         endTime: formValues.endTime.toISOString(),
-      }
+      };
       await client.models.Schedule.update(payload);
     } catch (error) {
-      console.error('updateSchedule: ', error)
+      console.error("updateSchedule: ", error);
     }
-  }
+  };
 
   const submit = (formValues: Form) => {
     if (isUpdate) {
       return updateSchedule({ schedule, formValues });
     }
     return createSchedule(formValues);
-  }
+  };
 
   const onPressSubmitButton = async () => {
     if (!formValues) return;
@@ -70,7 +73,7 @@ export default function ScheduleFormModal({
     if (formValues.text.length === 0) {
       appAlert({
         title: "이벤트를 저장할 수 없음",
-        message: "이벤트 내용을 입력해 주세요."
+        message: "이벤트 내용을 입력해 주세요.",
       });
       return;
     }
@@ -89,7 +92,7 @@ export default function ScheduleFormModal({
 
   const onChangeForm = (formValues: Form) => {
     setFormValues(formValues);
-  }
+  };
 
   return (
     <Modal
@@ -103,10 +106,10 @@ export default function ScheduleFormModal({
           <View style={styles.modalNavigator}>
             <TextButton text="취소" onPress={onClose} />
             <StyledText type={TextType.Title}>
-              {isUpdate ? '이벤트 편집' : '새로운 이벤트'}
+              {isUpdate ? "이벤트 편집" : "새로운 이벤트"}
             </StyledText>
             <TextButton
-              text={isUpdate ? '수정' : '추가'}
+              text={isUpdate ? "수정" : "추가"}
               disabled={!formValues}
               onPress={onPressSubmitButton}
             />
@@ -131,7 +134,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 0,
     // top: 0,
-    height: '90%',
+    height: "90%",
     width: "100%",
     backgroundColor: "white",
     zIndex: 12000,

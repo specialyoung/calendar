@@ -19,14 +19,14 @@ import DateSpinnerModal from "./DateSpinnerModal";
 const dayOfTheWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 const toDateStringFromCalendarDate = (calendarDate: App.CalendarDateObject) => {
-  const mm = `${calendarDate.m}`.padStart(2, '0');
-  const dd = `${calendarDate.d}`.padStart(2, '0');
+  const mm = `${calendarDate.m}`.padStart(2, "0");
+  const dd = `${calendarDate.d}`.padStart(2, "0");
   return `${calendarDate.y}-${mm}-${dd}`;
 };
 
 const toDateFromCalendarDate = (calendarDate: App.CalendarDateObject) => {
   return new Date(calendarDate.y, calendarDate.m - 1, calendarDate.d);
-}
+};
 
 const getCalendarDates = (year: number, month: number) => {
   const daysInMonth = getDaysInMonth(year, month);
@@ -48,8 +48,8 @@ const getCalendarDates = (year: number, month: number) => {
       array[i][d] = {
         y: year,
         m: month + 1,
-        d: date
-      }
+        d: date,
+      };
       date++;
     }
   }
@@ -69,7 +69,7 @@ export default function Calendar({
   onChangeDate,
 }: CalendarProps) {
   const today = new Date();
-  
+
   const [dateSpinnerModalVisible, setDateSpinnerModalVisible] = useState(false);
 
   const selectedYear = getYear(selectedDate);
@@ -79,18 +79,18 @@ export default function Calendar({
 
   const isToday = (calendarDate: App.CalendarDateObject | null) => {
     if (calendarDate === null) return false;
-    return isSame(toDateFromCalendarDate(calendarDate), today, 'date');
+    return isSame(toDateFromCalendarDate(calendarDate), today, "date");
   };
 
   const isSelectedDate = (calendarDate: App.CalendarDateObject | null) => {
     if (calendarDate === null) return false;
-    return isSame(toDateFromCalendarDate(calendarDate), selectedDate, 'date');
+    return isSame(toDateFromCalendarDate(calendarDate), selectedDate, "date");
   };
 
   const isDateWithSchedules = (calendarDate: App.CalendarDateObject) => {
     const dateString = toDateStringFromCalendarDate(calendarDate);
     return datesWithSchedules.includes(dateString);
-  }
+  };
 
   const onPressDateCell = (calendarDate: App.CalendarDateObject) => {
     onChangeDate(toDateFromCalendarDate(calendarDate));
@@ -166,8 +166,6 @@ export default function Calendar({
           </View>
         ))}
       </View>
-
-      
     </View>
   );
 }

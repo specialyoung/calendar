@@ -42,8 +42,8 @@ export const getFirstDayOfMonth = (year: number, month: number): number => {
  * display
  */
 export const toDateString = (date: Date): App.DateString => {
-  const mm = `${date.getMonth() + 1}`.padStart(2, '0');
-  const dd = `${date.getDate()}`.padStart(2, '0');
+  const mm = `${date.getMonth() + 1}`.padStart(2, "0");
+  const dd = `${date.getDate()}`.padStart(2, "0");
   return `${date.getFullYear()}-${mm}-${dd}`;
 };
 
@@ -57,18 +57,18 @@ export const toDate = (dateString: App.DateString): Date => {
 };
 
 export const toTimeString = (date: Date): App.TimeString => {
-  const hh = `${date.getHours()}`.padStart(2, '0');
-  const mm = `${getMinutes(date)}`.padStart(2, '0');
+  const hh = `${date.getHours()}`.padStart(2, "0");
+  const mm = `${getMinutes(date)}`.padStart(2, "0");
   return `${hh}:${mm}`;
-}
+};
 
 export const toDateTime = (timeString: App.TimeString): Date => {
-  const [hh, mm] = timeString.split(':');
+  const [hh, mm] = timeString.split(":");
   const date = new Date();
   date.setHours(Number(hh));
   date.setMinutes(Number(mm));
   return date;
-}
+};
 
 /**
  * manipulate
@@ -113,7 +113,7 @@ export const subtract = (date: Date, value: number, unit: AddUnit): Date => {
 /**
  * compare
  */
-type CompareUnit = "year" | "month" | "date" | 'hour' | 'minute' | "all";
+type CompareUnit = "year" | "month" | "date" | "hour" | "minute" | "all";
 export const isSame = (
   dateA: Date,
   dateB: Date,
@@ -133,11 +133,11 @@ export const isSame = (
 
   const isSameHour = getHour(dateA).hour === getHour(dateB).hour;
   if (!isSameHour) return false;
-  if (unit === 'hour') return true;
+  if (unit === "hour") return true;
 
   const isSameMinute = getMinutes(dateA) === getMinutes(dateB);
   if (!isSameMinute) return false;
-  if (unit === 'minute') return true;
+  if (unit === "minute") return true;
 
   return +dateA === +dateB;
 };

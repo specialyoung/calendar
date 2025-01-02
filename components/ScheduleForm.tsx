@@ -26,28 +26,32 @@ export interface Form {
 }
 
 export interface ScheduleFormProps {
-  schedule: Schema['Schedule']['type'] | null
-  onChangeForm: (form: Form) => void
+  schedule: Schema["Schedule"]["type"] | null;
+  onChangeForm: (form: Form) => void;
 }
 
 export default function ScheduleForm({
   schedule,
-  onChangeForm
+  onChangeForm,
 }: ScheduleFormProps) {
   const initialTime = new Date();
-  const [text, setText] = useState(schedule?.text ?? '');
-  const [startTime, setStartTime] = useState<Date>(schedule ? new Date(schedule.startTime) : initialTime);
-  const [endTime, setEndTime] = useState<Date>(schedule ? new Date(schedule.endTime) : initialTime);
+  const [text, setText] = useState(schedule?.text ?? "");
+  const [startTime, setStartTime] = useState<Date>(
+    schedule ? new Date(schedule.startTime) : initialTime,
+  );
+  const [endTime, setEndTime] = useState<Date>(
+    schedule ? new Date(schedule.endTime) : initialTime,
+  );
 
   useEffect(() => {
     onChangeForm({
       text,
-      color: 'coral',
+      color: "coral",
       startTime,
-      endTime
-    })
+      endTime,
+    });
   }, [text, startTime, endTime]);
-  
+
   return (
     <View style={styles.formContainer}>
       <Field label="Title">
@@ -55,14 +59,20 @@ export default function ScheduleForm({
       </Field>
 
       <Field label="Start Time">
-        <TimePicker initialTime={startTime} onChange={(date) => setStartTime(date)} />
+        <TimePicker
+          initialTime={startTime}
+          onChange={(date) => setStartTime(date)}
+        />
       </Field>
 
       <Field label="End Time">
-        <TimePicker initialTime={endTime} onChange={(date) => setEndTime(date)} />
+        <TimePicker
+          initialTime={endTime}
+          onChange={(date) => setEndTime(date)}
+        />
       </Field>
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
