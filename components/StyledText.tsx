@@ -8,10 +8,12 @@ export enum TextType {
 
 interface StyledTextProps {
   type?: TextType;
+  color?: string;
 }
 
 export default function StyledText({
   type = TextType.Text,
+  color,
   children,
   ...rest
 }: StyledTextProps & Omit<TextProps, "style">) {
@@ -21,6 +23,7 @@ export default function StyledText({
         styles.text,
         type === TextType.SubTitle ? styles.subtitle : null,
         type === TextType.Title ? styles.title : null,
+        { color: color ?? 'black' }
       ]}
       {...rest}
     >

@@ -6,8 +6,8 @@ const schema = a.schema({
       date: a.date().required(),
       text: a.string().required(),
       color: a.string().required(),
-      startTime: a.string().required(),
-      endTime: a.string().required()
+      startTime: a.datetime().required(),
+      endTime: a.datetime().required()
     })
     .authorization((allow) => [allow.guest()]),
 });

@@ -36,8 +36,8 @@ export default function ScheduleForm({
 }: ScheduleFormProps) {
   const initialTime = new Date();
   const [text, setText] = useState(schedule?.text ?? '');
-  const [startTime, setStartTime] = useState<Date>(schedule ? toDateTime(schedule.startTime as App.TimeString) : initialTime);
-  const [endTime, setEndTime] = useState<Date>(schedule ? toDateTime(schedule.endTime as App.TimeString) : initialTime);
+  const [startTime, setStartTime] = useState<Date>(schedule ? new Date(schedule.startTime) : initialTime);
+  const [endTime, setEndTime] = useState<Date>(schedule ? new Date(schedule.endTime) : initialTime);
 
   useEffect(() => {
     onChangeForm({

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Modal, StyleSheet, View } from "react-native";
+import { Modal, ScrollView, StyleSheet, View } from "react-native";
 import appAlert from "@/utils/alert";
 import TextButton from "./TextButton";
 import StyledText, { TextType } from "./StyledText";
@@ -32,10 +32,9 @@ export default function ScheduleFormModal({
         date: toDateString(date),
         text: formValues.text,
         color: formValues.color,
-        startTime: toTimeString(formValues.startTime),
-        endTime: toTimeString(formValues.endTime),
+        startTime: formValues.startTime.toISOString(),
+        endTime: formValues.endTime.toISOString(),
       }
-      console.log('create payload: ', payload)
       await client.models.Schedule.create(payload);
     } catch (error) {
       console.error('createSchedule: ', error)
@@ -49,10 +48,9 @@ export default function ScheduleFormModal({
     try {
       const payload = {
         ...schedule,
-        startTime: toTimeString(formValues.startTime),
-        endTime: toTimeString(formValues.endTime),
+        startTime: formValues.startTime.toISOString(),
+        endTime: formValues.endTime.toISOString(),
       }
-      console.log('create payload: ', payload)
       await client.models.Schedule.update(payload);
     } catch (error) {
       console.error('updateSchedule: ', error)
@@ -113,8 +111,9 @@ export default function ScheduleFormModal({
               onPress={onPressSubmitButton}
             />
           </View>
-
-          <ScheduleForm schedule={schedule} onChangeForm={onChangeForm} />
+          <ScrollView style={styles.scrollContainer}>
+            <ScheduleForm schedule={schedule} onChangeForm={onChangeForm} />
+          </ScrollView>
         </View>
       </View>
     </Modal>
@@ -131,18 +130,22 @@ const styles = StyleSheet.create({
   container: {
     position: "absolute",
     bottom: 0,
-    padding: 16,
+    // top: 0,
+    height: '90%',
     width: "100%",
     backgroundColor: "white",
     zIndex: 12000,
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16,
   },
+  scrollContainer: {
+    padding: 16,
+  },
   modalNavigator: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingVertical: 8,
+    padding: 16,
   },
   modalBody: {
     gap: 8,

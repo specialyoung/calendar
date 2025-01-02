@@ -113,7 +113,7 @@ export const subtract = (date: Date, value: number, unit: AddUnit): Date => {
 /**
  * compare
  */
-type CompareUnit = "year" | "month" | "date" | "all";
+type CompareUnit = "year" | "month" | "date" | 'hour' | 'minute' | "all";
 export const isSame = (
   dateA: Date,
   dateB: Date,
@@ -130,6 +130,14 @@ export const isSame = (
   const isSameDate = getDate(dateA) === getDate(dateB);
   if (!isSameDate) return false;
   if (unit === "date") return true;
+
+  const isSameHour = getHour(dateA).hour === getHour(dateB).hour;
+  if (!isSameHour) return false;
+  if (unit === 'hour') return true;
+
+  const isSameMinute = getMinutes(dateA) === getMinutes(dateB);
+  if (!isSameMinute) return false;
+  if (unit === 'minute') return true;
 
   return +dateA === +dateB;
 };
